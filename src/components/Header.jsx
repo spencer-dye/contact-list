@@ -1,8 +1,19 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import logo from '../images/logo.svg'
 import userIcon from '../images/userIcon.svg'
 
-export default function Header() {
+export default function Header(props) {
+    const btnDisplay = props.route === '/' ? 'Create a new contact' : 'View all contacts'
+    const btnRoute = props.route === '/' ? '/addcontact' : '/'
+    let pageTitle
+    if (props.route === '/') {
+         pageTitle = 'All Contacts'
+    } else if (props.route === '/editcontact') {
+        pageTitle = 'Edit Contact'
+    } else {
+        pageTitle = 'Add a New Contact'
+    }
     return (
         <header>
             <div className="top-bar">
@@ -13,15 +24,15 @@ export default function Header() {
             </div>
             <div className="btm-bar">
                 <div className="bar__container">
-                    <h1>Contacts</h1>
+                    <h1>{pageTitle}</h1>
                     <div className="tool-wrap">
-                        <input 
+                        {/* { props.route === '/' && <input 
                             type="search"
                             name="search"
                             placeholder='Search contacts'
                             aria-placeholder='Search contacts'
-                        />
-                        <button>Create new contact</button>
+                        /> } */}
+                        <Link to={btnRoute} className='primary-btn'>{btnDisplay}</Link>
                     </div>
                 </div>
             </div>
